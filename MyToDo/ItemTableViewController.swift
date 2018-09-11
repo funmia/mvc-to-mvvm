@@ -10,15 +10,15 @@ import UIKit
 
 class ItemTableViewController: UITableViewController {
 
+    let viewModel = ItemTableViewModel()
+    
     //1
-    private let defaults = UserDefaults.standard
-    private var todoList = [ToDoItem]()
+//    private let defaults = UserDefaults.standard
 
     //2
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        fetchData()
     }
 
     //3
@@ -39,18 +39,18 @@ class ItemTableViewController: UITableViewController {
     //4
     @IBAction func didTapAdd(_ sender: Any) {
 
-        let alert = UIAlertController(title: "New To-Do Item", message: "Insert the title of the new to-do item:", preferredStyle: .alert)
+        let alert = UIAlertController(title: viewModel.alertTitle, message: viewModel.alertMessage, preferredStyle: .alert)
         alert.addTextField(configurationHandler: nil)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: viewModel.actionTitle, style: .default, handler: { (_) in
 
             if let title = alert.textFields![0].text {
                 guard !title.isEmpty else { return }
-                let newIndex = self.todoList.count
-                self.todoList.append(ToDoItem(title: title))
+                let newIndex = self.viewModel.todoList.count
+                self.viewModel.addToDo(title) 
 
                 self.tableView.insertRows(at: [IndexPath(row: newIndex, section: 0)], with: .top)
 
-                self.saveData()
+                self.viewModel.saveData()
             }
 
         }))
@@ -67,7 +67,7 @@ class ItemTableViewController: UITableViewController {
 
     //6
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoList .count
+        return self.viewModel.todoList .count
     }
 
     // MARK: - Table view delegate methods
@@ -77,9 +77,9 @@ class ItemTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.backgroundColor = UIColor.clear
 
-        if indexPath.row < todoList.count
+        if indexPath.row < viewModel.todoList.count
         {
-            let item = todoList[indexPath.row]
+            let item = viewModel.todoList[indexPath.row]
             cell.textLabel?.text = item.title
             
             //MARK: set the checkmark for item done
@@ -95,13 +95,15 @@ class ItemTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row < todoList.count {
+        if indexPath.row < self.viewModel.todoList.count {
 
-            todoList[indexPath.row].done = !todoList[indexPath.row].done
-
+//            self.viewModel.todoList[indexPath.row].done = !self.viewModel.todoList[indexPath.row].done
+            
+            viewModel.toggleDone(row: indexPath.row)
+            
             tableView.reloadRows(at: [indexPath], with: .automatic)
 
-            saveData()
+            viewModel.saveData()
         }
     }
 
@@ -109,40 +111,41 @@ class ItemTableViewController: UITableViewController {
     //9
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 
-        if indexPath.row < todoList.count {
+        if indexPath.row < self.viewModel.todoList.count {
 
-            todoList.remove(at: indexPath.row)
+           self.viewModel.deleteItem(indexPath.row)
 
             tableView.deleteRows(at: [indexPath], with: .top)
-            saveData()
+            viewModel.saveData()
         }
     }
     
     //MARK: fetch data from user defaults
     //10
-    func fetchData() {
-        
-        if let list = defaults.value(forKey: "encodedList") as? [[String: Any]] {
-            
-            for item in list {
-                guard let todoItem = ToDoItem(item) else { return }
-                todoList.append(todoItem)
-            }
-        }
-    }
+//    func fetchData() {
+//
+//        if let list = defaults.value(forKey: "encodedList") as? [[String: Any]] {
+//
+//            for item in list {
+//                guard let todoItem = ToDoItem(item) else { return }
+//
+//                self.viewModel.todoList.append(todoItem)
+//            }
+//        }
+//    }
     
     
     //MARK: Save data to user defaults
     //11
-    func saveData() {
-        
-        var encodedList = [[String: Any]]()
-        
-        for item in todoList {
-            encodedList.append(item.toPropertyList())
-        }
-
-        defaults.set(encodedList, forKey: "encodedList")
-    }
+//    func saveData() {
+//
+//        var encodedList = [[String: Any]]()
+//
+//        for item in self.viewModel.todoList {
+//            encodedList.append(item.toPropertyList())
+//        }
+//
+//        defaults.set(encodedList, forKey: "encodedList")
+//    }
     
 }

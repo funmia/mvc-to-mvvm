@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		049894702147F3FD00BEECBD /* ItemTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498946F2147F3FD00BEECBD /* ItemTableViewModel.swift */; };
 		FDB90350200F214B00B7874B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB9034F200F214B00B7874B /* AppDelegate.swift */; };
 		FDB90355200F214B00B7874B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDB90353200F214B00B7874B /* Main.storyboard */; };
 		FDB90357200F214B00B7874B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDB90356200F214B00B7874B /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0498946F2147F3FD00BEECBD /* ItemTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewModel.swift; sourceTree = "<group>"; };
 		FDB9034C200F214B00B7874B /* MyToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDB9034F200F214B00B7874B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDB90354200F214B00B7874B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				FDB9035B200F214B00B7874B /* Info.plist */,
 				FDB9036F200F22CA00B7874B /* ToDoItem.swift */,
 				FDB90371200F23ED00B7874B /* ItemTableViewController.swift */,
+				0498946F2147F3FD00BEECBD /* ItemTableViewModel.swift */,
 			);
 			path = MyToDo;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 			files = (
 				FDB90350200F214B00B7874B /* AppDelegate.swift in Sources */,
 				FDB90372200F23ED00B7874B /* ItemTableViewController.swift in Sources */,
+				049894702147F3FD00BEECBD /* ItemTableViewModel.swift in Sources */,
 				FDB90370200F22CA00B7874B /* ToDoItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
